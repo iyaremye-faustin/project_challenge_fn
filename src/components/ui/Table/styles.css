@@ -1,0 +1,11 @@
+@media (max-width: 640px) {
+  .hidden {
+    display: none !important;
+  }
+  .table-cell {
+    display: table-cell !important;
+  }
+  .table-header-group {
+    display: table-header-group !important;
+  }
+}
