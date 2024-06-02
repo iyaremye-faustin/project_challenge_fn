@@ -9,49 +9,29 @@ import AddProduct from '../Modals/AddProduct';
 import AddSeedProduct from '../Modals/AddSeedProduct';
 
 const AdminProducts = () => {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const { loading, setLoading } = useAppStore((state) => state);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [totalItems, setTotalItems] = useState(10);
-  const [newItemForm,setShowNewForm] = useState(false);
-  const [newSeedItemForm,setShowNewSeedForm] = useState(false);
+  const [newItemForm, setShowNewForm] = useState(false);
+  const [newSeedItemForm, setShowNewSeedForm] = useState(false);
   const [formData, setFormData] = useState({});
 
-
   useEffect(() => {
-    allProducts()
+    allProducts();
   }, [currentPage, pageSize]);
 
-  const productsColumns = [
-    'product_id',
-    'name',
-    'price',
-    'category'
-  ];
+  const productsColumns = ['product_id', 'name', 'price', 'category'];
 
   const productsLabels = {
     product_id: 'Product Id',
     name: 'Product Name',
     price: 'Price',
-    category:'Category',
+    category: 'Category'
   };
 
   const actions = [
-    {
-      label: 'Update',
-      onClick: (charger) => {
-        openEditChargerModal(charger);
-        setChargerData(charger);
-      },
-    },
-    {
-      label: 'Details',
-      onClick: (charger) => {
-        openChargeboxDetailsModal(charger);
-        setChargerData(charger);
-      },
-    },
   ];
 
   const handlePageChange = (pageNumber) => {
@@ -69,38 +49,38 @@ const AdminProducts = () => {
     setPageSize(pageSize);
   };
 
-  const openNewModal=()=>{
-    setShowNewForm(!newItemForm)
-  }
+  const openNewModal = () => {
+    setShowNewForm(!newItemForm);
+  };
 
-  const openSeedNewModal=()=>{
-    setShowNewSeedForm(!newSeedItemForm)
-  }
+  const openSeedNewModal = () => {
+    setShowNewSeedForm(!newSeedItemForm);
+  };
 
-  const handleSubmitProduct=async(e)=>{
+  const handleSubmitProduct = async (e) => {
     e.preventDefault();
-    const res = saveProduct(formData)
+    const res = await saveProduct(formData);
+    console.log(res)
     if (res.status) {
-      openSeedNewModal(false)
-      openNewModal(false)
+      openSeedNewModal();
     }
-  }
+  };
 
-  const allProducts = async()=>{
-    setLoading (true)
-    const res = await getAllProducts(); 
+  const allProducts = async () => {
+    setLoading(true);
+    const res = await getAllProducts();
     const formattedProducts = res.map((val) => {
-      val.category = val.category ? val.category.name:'';
+      val.category = val.category ? val.category.name : '';
       return val;
     });
-    setProducts(formattedProducts)
-    setLoading (false)
-  }
+    setProducts(formattedProducts);
+    setLoading(false);
+  };
 
   return (
     <>
       <div className="flex flex-col p-2 gap-2 ">
-        <DashboardHeader headerTitle={'Products'} subTitle={'All'}/>
+        <DashboardHeader headerTitle={'Products'} subTitle={'All'} />
         <Filter
           title="Products"
           number={totalItems}
@@ -124,12 +104,16 @@ const AdminProducts = () => {
           </div>
           {newItemForm && (
             <div className="w-full h-full p-4 fixed top-0 z-40 right-0">
-              <AddProduct closeModal={openNewModal} updateFormData={updateFormData}/>
+              <AddProduct closeModal={openNewModal} updateFormData={updateFormData} />
             </div>
           )}
           {newSeedItemForm && (
             <div className="w-full h-full p-4 fixed top-0 z-40 right-0">
-              <AddSeedProduct closeModal={openSeedNewModal} updateFormData={updateFormData} handleRegister={handleSubmitProduct}/>
+              <AddSeedProduct
+                closeModal={openSeedNewModal}
+                updateFormData={updateFormData}
+                handleRegister={handleSubmitProduct}
+              />
             </div>
           )}
           {loading && <Spinnar />}

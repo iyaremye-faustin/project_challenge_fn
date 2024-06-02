@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import toast from "react-hot-toast";
+import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import Button from '../../reusable/Button';
-import { getCartFromLocalStorage,saveCartToLocalStorage } from '../../../api/localStorage';
+import { getCartFromLocalStorage, saveCartToLocalStorage } from '../../../api/localStorage';
 import { notificationErrorStyles } from '../../constants/app';
 import useAppStore from '../../store/AppStore';
 
 const OrderProductCard = ({ item }) => {
   const [quantity, setQuantity] = useState(1);
-  const [size,setSize] = useState(0);
+  const [size, setSize] = useState(0);
   const { cartItems, setCartItems } = useAppStore((state) => state);
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -17,25 +17,35 @@ const OrderProductCard = ({ item }) => {
     handleQuantityChange(quantity + 1);
   };
   const isProductInCart = getCartFromLocalStorage().some(
-    (cartItem) => cartItem.item.product_id === item.product_id);
+    (cartItem) => cartItem.item.product_id === item.product_id
+  );
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
       handleQuantityChange(quantity - 1);
     }
   };
+
   const addToCart = () => {
-    const cartItem = { item, quantity };
+    const cartItem = { item, quantity, size };
     if (!isProductInCart) {
-        const updatedCart = [...getCartFromLocalStorage(), cartItem];
-        saveCartToLocalStorage(updatedCart);
-        setCartItems(updatedCart);
-        setQuantity(1);
-        toast('Product is added to cart');
-    }else{
-        toast.error('Product Already added',{ className: notificationErrorStyles });
+      const updatedCart = [...getCartFromLocalStorage(), cartItem];
+      saveCartToLocalStorage(updatedCart);
+      setCartItems(updatedCart);
+      setQuantity(1);
+      toast('Product is added to cart');
+    } else {
+      toast.error('Product Already added', { className: notificationErrorStyles });
     }
-};
+  };
+  const initPage = () => {
+    const cart = getCartFromLocalStorage();
+    setCartItems(cart);
+  };
+
+  useEffect(() => {
+    initPage();
+  }, []);
 
   return (
     <div className="block max-w-[18rem] rounded-lg bg-white text-surface shadow-lg dark:bg-surface-dark dark:text-white">
@@ -46,9 +56,14 @@ const OrderProductCard = ({ item }) => {
         <h5 className="mb-2 text-xl font-medium leading-tight">{item.name}</h5>
         <p className="text-base mb-4">{item.description}</p>
       </div>
-      <div className='flex flex-col justify-center items-center m-2 gap-2'>
+      <div className="flex flex-col justify-center items-center m-2 gap-2">
         <h4>Land Size (In Acres)</h4>
-        <input type="text" placeholder='Land Size' className='border border-gray-400 p-1 rounded-[8px] font-[300] outline-none w-1/2' defaultValue={0}/>
+        <input
+          type="text"
+          placeholder="Land Size"
+          className="border border-gray-400 p-1 rounded-[8px] font-[300] outline-none w-1/2"
+          defaultValue={0}
+        />
       </div>
       <div className="flex justify-center items-center mb-2">
         <div>
@@ -66,10 +81,10 @@ const OrderProductCard = ({ item }) => {
           className="text-center mx-1"
           value={quantity}
           style={{
-            width: "2rem",
-            height: "1.5rem",
-            border: "none",
-            textAlign: "center",
+            width: '2rem',
+            height: '1.5rem',
+            border: 'none',
+            textAlign: 'center'
           }}
         />
         <span>Kg</span>
@@ -92,7 +107,7 @@ const OrderProductCard = ({ item }) => {
           onClick={addToCart}
         >
           Buy
-          </button>
+        </button>
       </div>
     </div>
   );

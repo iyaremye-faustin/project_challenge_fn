@@ -44,10 +44,7 @@ const DataTable = ({ data, columns, labels, actions }) => {
           {data.map((row, rowIndex) => (
             <tr key={rowIndex} className="">
               {columns.map((column, columnIndex) => (
-                <td
-                  key={columnIndex}
-                  className="px-6 py-3 text-xs text-left text-gray-500 w-200"
-                >
+                <td key={columnIndex} className="px-6 py-3 text-xs text-left text-gray-500 w-200">
                   {row[column] !== undefined ? row[column] : ''}
                 </td>
               ))}
@@ -58,7 +55,7 @@ const DataTable = ({ data, columns, labels, actions }) => {
                       <button
                         onClick={() => setActiveRow(activeRow === rowIndex ? null : rowIndex)}
                         type="button"
-                        className='text-lg text-blue-500'
+                        className="text-lg text-blue-500"
                         id="options-menu"
                         aria-expanded="true"
                         aria-haspopup="true"

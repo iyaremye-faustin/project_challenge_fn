@@ -1,13 +1,13 @@
 import React from 'react';
-import FarmerSiderbar from '../components/Farmer/parts/FarmerSiderbar';
+import StoreKeeperSideBar from '../components/Farmer/parts/StoreKeeperSideBar';
 import AdminTopBar from '../components/admin/parts/AdminTopBar';
 import { Outlet } from 'react-router-dom';
 
-const Farmer = () => {
+const StoreKeeper = () => {
   return (
     <div className="flex flex-row w-full  ">
       <div className="w-1/5">
-        <FarmerSiderbar />
+        <StoreKeeperSideBar />
       </div>
       <div className="w-4/5 flex flex-col items-start gap-2 realtive">
         <div className="h-[10vh] z-40 w-full relative ">
@@ -30,4 +30,4 @@ const Farmer = () => {
   );
 };
 
-export default Farmer;
+export default StoreKeeper;

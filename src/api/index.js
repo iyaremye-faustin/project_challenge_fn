@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 
-export const baseURL = process.env.REACT_APP_BACKEND_URL;
+export const baseURL = "http://localhost:4001/api/v1";
 
 export const api = axios.create({
   baseURL: `${baseURL}`

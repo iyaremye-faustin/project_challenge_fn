@@ -6,7 +6,7 @@ import Filter from '../admin/parts/Filter';
 import { useNavigate } from 'react-router-dom';
 import useAppStore from '../store/AppStore';
 
-const Orders = () => {
+const StoreOrders = () => {
   const [orders, setOrders] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const { loading, setLoading, pageSize, currentPage, setCurrentPage } = useAppStore((state) => state);
@@ -23,17 +23,19 @@ const Orders = () => {
 
   const ordersColumns = [
     'order_id',
+    'payment_status',
     'createdAt',
   ];
 
   const ordersLabels = {
-    chargeBoxId: 'Order Date',
-    ownerEmail: 'Order By',
-    locationLatitude: 'Payment Status'
+    oder_id: 'Order ID',
+    payment_status: 'Payment Status',
+    createdAt: 'Created Time'
   };
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  
   const goToOrdersPage = () => {
     navigate('/farmer/make/orders');
   };
@@ -48,9 +50,9 @@ const Orders = () => {
       <Filter
         title="Orders"
         number={totalItems}
-        url={'orders'}
+        url={''}
         openCloseModal={() => {}}
-        otherButton={goToOrdersPage}
+        otherButton={''}
       />
       <div className="relative">
         <div className="sticky top-0 bg-white shadow-md z-10">
@@ -71,4 +73,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default StoreOrders;

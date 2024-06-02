@@ -29,6 +29,9 @@ const Login = () => {
     if (res.status && res.role.includes('farmer')) {
       navigate('/farmer');
     }
+    if (res.status && res.role.includes('store keeper')) {
+      navigate('/storekeeper');
+    }
     if (res.status && res.role.includes('administrator')) {
       navigate('/admin');
     } else {
@@ -38,12 +41,10 @@ const Login = () => {
     }
     setLoading(false);
   };
-  
 
   return (
     <div className="w-full h-[100vh] flex flex-row ">
-      <div className="w-1/2 h-full relative items-start">
-      </div>
+      <div className="w-1/2 h-full relative items-start"></div>
       <div className="w-1/2 h-full relative  flex flex-col gap-5  items-center justify-center">
         <form className="flex flex-col gap-4 w-[300px] ">
           <div className="flex flex-col items-start">
@@ -55,7 +56,7 @@ const Login = () => {
               type="text"
               className="p-3 bg-background rounded-[8px] font-[300] outline-none  w-full "
               placeholder="Enter Email Or Username"
-              name="login" 
+              name="login"
               onChange={handleChange}
             />
           </div>

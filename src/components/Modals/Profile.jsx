@@ -1,25 +1,25 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import useAppStore from '../store/AppStore';
 
-const Profile = ({user}) => {
-  const [name,setName] = useState('') 
-  const [role,setRole] = useState('')
-  const [shortName,setShortName] = useState('')
-  const {loading, setLoading} = useAppStore((state) => state);
+const Profile = ({ user }) => {
+  const [name, setName] = useState('');
+  const [role, setRole] = useState('');
+  const [shortName, setShortName] = useState('');
+  const { loading, setLoading } = useAppStore((state) => state);
 
-  const initUser=()=>{
-    setLoading(true)
+  const initUser = () => {
+    setLoading(true);
     if (user) {
       setName(user.fullName);
-      setRole(user.role)
+      setRole(user.role);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    initUser()
+    initUser();
   }, []);
-  
+
   return (
     <div className=" w-full bg-white rounded-[8px] p-4 items-start flex flex-col gap-4">
       <div className="bg-main rounded-[12px] p-3 flex flex-row gap-2 w-full">

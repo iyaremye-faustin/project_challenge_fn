@@ -12,21 +12,20 @@ const Accounts = () => {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
-  const [selected,setSelected] = useState({})
-  const [roles,setRoles] = useState([]);
+  const [selected, setSelected] = useState({});
+  const [roles, setRoles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [totalItems, setTotalItems] = useState(0);
 
   const openChangeRole = (user) => {
-    setSelected(user)
+    setSelected(user);
     setChangeRoleModal(!changeRoleModal);
   };
 
-
   const processUsers = (users) => {
     const formattedUsers = users.map((val) => {
-      val.role = val.role ? val.role.role_name:'';
+      val.role = val.role ? val.role.role_name : '';
       return val;
     });
     setUsers(formattedUsers);
@@ -36,8 +35,8 @@ const Accounts = () => {
   const getUsers = async () => {
     const res = await getAllUsers();
     if (res) {
-      processUsers(res.users)
-      setTotalItems(res.count)
+      processUsers(res.users);
+      setTotalItems(res.count);
     }
   };
 
@@ -49,10 +48,9 @@ const Accounts = () => {
     }));
   };
 
-
   const updateUserHandler = async (e) => {
-    e.preventDefault()
-    const res = await changeRole({role_name: formData.role_name, user_id: selected.user_id});
+    e.preventDefault();
+    const res = await changeRole({ role_name: formData.role_name, user_id: selected.user_id });
     if (res) {
       toast.success('User updated successfully');
       setChangeRoleModal(false);
@@ -63,25 +61,32 @@ const Accounts = () => {
       });
     }
   };
-  
-  const fetchRoles =async()=>{
+
+  const fetchRoles = async () => {
     const res = await getRoles();
-    setRoles(res)
-  }
+    setRoles(res);
+  };
 
   useEffect(() => {
     getUsers();
     fetchRoles();
   }, []);
 
-  const usersColumns = ['user_id', 'full_name', 'phone_number', 'email', 'phoneNumber', 'enabled', 'role'];
+  const usersColumns = [
+    'user_id',
+    'full_name',
+    'phone_number',
+    'email',
+    'phoneNumber',
+    'enabled',
+    'role'
+  ];
 
   const usersLabels = {
     user_id: 'ID',
     full_name: 'Names',
     email: 'Email Address',
     phone_number: 'Telphone',
-    role: 'Status',
     role: 'Role'
   };
 
@@ -113,16 +118,20 @@ const Accounts = () => {
             roles={roles}
             updateFormData={inputChange}
             handleRegister={updateUserHandler}
-            closeModal={()=>setChangeRoleModal()}
+            closeModal={() => setChangeRoleModal()}
           />
         </div>
       )}
       <div className="bg-gray-700">
-        <DataTable data={users} columns={usersColumns} labels={usersLabels} actions={actions}    
-             currentPage={currentPage}
-              totalItems={totalItems}
-              pageSize={pageSize}
-            />
+        <DataTable
+          data={users}
+          columns={usersColumns}
+          labels={usersLabels}
+          actions={actions}
+          currentPage={currentPage}
+          totalItems={totalItems}
+          pageSize={pageSize}
+        />
       </div>
       {loading && <Spinnar />}
     </div>

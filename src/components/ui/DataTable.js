@@ -9,7 +9,7 @@ const DataTable = ({
   currentPage,
   pageSize,
   onPageChange,
-  lastPage,
+  lastPage
 }) => {
   const [activeRow, setActiveRow] = useState(null);
 
@@ -48,15 +48,14 @@ const DataTable = ({
           </tr>
         </thead>
         <tbody
-          className={`${data.clickable ? 'cursor-pointer hover:bg-gray-50 ms:flex-col h-10' : 'ms:flex-col h-10'}`}
+          className={`${
+            data.clickable ? 'cursor-pointer hover:bg-gray-50 ms:flex-col h-10' : 'ms:flex-col h-10'
+          }`}
         >
           {data.map((row, rowIndex) => (
             <tr key={rowIndex} className="">
               {columns.map((column, columnIndex) => (
-                <td
-                  key={columnIndex}
-                  className="px-6 py-3 text-xs text-left text-gray-500 w-200"
-                >
+                <td key={columnIndex} className="px-6 py-3 text-xs text-left text-gray-500 w-200">
                   {row[column] !== undefined ? row[column] : ''}
                 </td>
               ))}
@@ -114,11 +113,8 @@ const DataTable = ({
               {Math.min((currentPage - 1) * pageSize + 1, totalItems)}
             </span>{' '}
             to{' '}
-            <span className="font-medium mx-1">
-              {Math.min(currentPage * pageSize, totalItems)}
-            </span>{' '}
-            of{' '}
-            <span className="font-medium mx-1">{totalItems}</span> results
+            <span className="font-medium mx-1">{Math.min(currentPage * pageSize, totalItems)}</span>{' '}
+            of <span className="font-medium mx-1">{totalItems}</span> results
           </p>
           <nav
             className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
@@ -194,11 +190,8 @@ const DataTable = ({
               {Math.min((currentPage - 1) * pageSize + 1, totalItems)}
             </span>{' '}
             to{' '}
-            <span className="font-medium mx-1">
-              {Math.min(currentPage * pageSize, totalItems)}
-            </span>{' '}
-            of{' '}
-            <span className="font-medium mx-1">{totalItems}</span> results
+            <span className="font-medium mx-1">{Math.min(currentPage * pageSize, totalItems)}</span>{' '}
+            of <span className="font-medium mx-1">{totalItems}</span> results
           </p>
           <nav
             className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"

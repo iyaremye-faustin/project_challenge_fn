@@ -5,14 +5,15 @@ import useAppStore from '../../store/AppStore';
 import { todayDate } from '../../../utils/helpers';
 import { isLoggedIn } from '../../../api/auth';
 
-
 const AdminTopBar = () => {
   const [today, setDay] = useState(todayDate());
   const [profile, setProfile] = useState(false);
   const modalRef = useRef(null);
   const [name, setName] = useState('');
-  const [role,setRole] = useState('');
-  const {user,setUser, loading, setLoading, cartItems} = useAppStore((state) => state);
+  const [role, setRole] = useState('');
+  const { user, setUser, loading, setLoading, cartItems, setCartItems } = useAppStore(
+    (state) => state
+  );
 
   const navigate = useNavigate();
   const handleOutsideClick = (e) => {
@@ -20,20 +21,24 @@ const AdminTopBar = () => {
       setProfile(false);
     }
   };
-  
 
   const validChecking = async () => {
-    setLoading(true)
+    setLoading(true);
     const { status, user } = await isLoggedIn();
     if (!status) {
       navigate('/');
     }
-    setUser(user)
+    setUser(user);
     setName(user.fullName);
-    setRole(user.role)
+    setRole(user.role);
     setDay(todayDate());
-    setLoading(false)
+    setLoading(false);
   };
+  const reviewOrder =()=>{
+    if (cartItems.length) {
+      navigate('/farmer/order/review');
+    }
+  }
 
   useEffect(() => {
     validChecking();
@@ -42,7 +47,7 @@ const AdminTopBar = () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
-  
+
   return (
     <div className="w-4/5  flex flex-row justify-between p-2 bg-white fixed h-[12vh] z-20 ">
       <div className="flex flex-row gap-3 items-center">
@@ -73,37 +78,39 @@ const AdminTopBar = () => {
         </div>
       </div>
       <div className="flex flex-row items-center gap-3">
+        <div className="flex flex-row items-center gap-3 cursor-pointer" onClick={reviewOrder}>
+          <div className="relative p-2 rounded-[12px] bg-background">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 4H3C2.44772 4 2 4.44772 2 5C2 5.55228 2.44772 6 3 6H4.18365L6.05942 14.5635C6.19313 15.1784 6.74555 15.6341 7.37379 15.6341H18.8614C19.4696 15.6341 20.0012 15.1967 20.152 14.597L21.8479 7.59701C21.9721 7.08911 21.5624 6.6341 21.0418 6.6341H6.27248L5.74156 4H7ZM6.51765 8.6341H19.0418L17.7894 13.6341H7.95964L6.51765 8.6341Z"
+                fill="black"
+              />
+              <path
+                d="M10 18C9.44772 18 9 18.4477 9 19C9 19.5523 9.44772 20 10 20C10.5523 20 11 19.5523 11 19C11 18.4477 10.5523 18 10 18Z"
+                fill="black"
+              />
+              <path
+                d="M17 18C16.4477 18 16 18.4477 16 19C16 19.5523 16.4477 20 17 20C17.5523 20 18 19.5523 18 19C18 18.4477 17.5523 18 17 18Z"
+                fill="black"
+              />
+            </svg>
+            {cartItems.length > 0 && (
+              <span className="absolute top-0 right-0 ml-3 bg-main text-white text-md rounded-full w-5 h-5 flex items-center justify-center">
+                {cartItems.length}
+              </span>
+            )}
+          </div>
+        </div>
         <div
           className="flex flex-row items-center gap-3 cursor-pointer"
           onClick={() => setProfile(!profile)}
         >
-          <div className="relative p-2 rounded-[12px] bg-background">
-          <svg width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M7 4H3C2.44772 4 2 4.44772 2 5C2 5.55228 2.44772 6 3 6H4.18365L6.05942 14.5635C6.19313 15.1784 6.74555 15.6341 7.37379 15.6341H18.8614C19.4696 15.6341 20.0012 15.1967 20.152 14.597L21.8479 7.59701C21.9721 7.08911 21.5624 6.6341 21.0418 6.6341H6.27248L5.74156 4H7ZM6.51765 8.6341H19.0418L17.7894 13.6341H7.95964L6.51765 8.6341Z"
-    fill="black"
-  />
-  <path
-    d="M10 18C9.44772 18 9 18.4477 9 19C9 19.5523 9.44772 20 10 20C10.5523 20 11 19.5523 11 19C11 18.4477 10.5523 18 10 18Z"
-    fill="black"
-  />
-  <path
-    d="M17 18C16.4477 18 16 18.4477 16 19C16 19.5523 16.4477 20 17 20C17.5523 20 18 19.5523 18 19C18 18.4477 17.5523 18 17 18Z"
-    fill="black"
-  />
-</svg>
-{cartItems.length > 0 && (
-        <span className="absolute top-0 right-0 ml-3 bg-main text-white text-md rounded-full w-5 h-5 flex items-center justify-center">
-          {cartItems.length}
-        </span>
-      )}
-
-          </div>
           <div className="p-1 px-2 rounded-[12px]  flex flex-row items-center gap-2 bg-background">
             <div className="p-2 py-3 rounded-[12px]  bg-blue">
               <svg
@@ -113,10 +120,7 @@ const AdminTopBar = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d=""
-                  fill="#0685A5"
-                />
+                <path d="" fill="#0685A5" />
               </svg>
             </div>
             <div className="flex flex-col items-start gap-[-4px]">
@@ -146,7 +150,7 @@ const AdminTopBar = () => {
         } transition-all duration-900 h-[100vh] top-0 w-full bg-main/10 p-2 `}
       >
         <div className="w-1/5" ref={modalRef}>
-          {!loading && <Profile user={user}/>}
+          {!loading && <Profile user={user} />}
         </div>
       </div>
     </div>

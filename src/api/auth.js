@@ -5,10 +5,11 @@ import toast from 'react-hot-toast';
 
 export const authLogin = async (login) => {
   try {
-    const {data} = await axios.post(`${baseURL}/users/signin`, login);
+    const { data } = await axios.post(`${baseURL}/users/signin`, login);
     if (data.status == '200') {
       const decodedToken = jwtDecode(data.data.token);
-      const {payload} = decodedToken ;
+      const { payload } = decodedToken;
+      console.log(payload);
       localStorage.setItem(
         'farm_sys_token',
         JSON.stringify({
@@ -24,29 +25,36 @@ export const authLogin = async (login) => {
         })
       );
       sessionStorage.setItem('farm_sys_token', data.data.token);
-      
-      return { status: true, role: payload.role.role_name, userId: payload.user_id,mesage:'Login Successful'};
+
+      return {
+        status: true,
+        role: payload.role.role_name,
+        userId: payload.user_id,
+        mesage: 'Login Successful'
+      };
     }
     return { status: false, message: 'Invalid Username or Password!' };
   } catch (error) {
     if (error.response) {
-      return { status: false, message: error.response.message ? error.response.message : 'Login failed!' };
+      return {
+        status: false,
+        message: error.response.message ? error.response.message : 'Login failed!'
+      };
     }
     return { status: false, message: 'Login failed!' };
   }
 };
 
-
 export const authRegister = async (user) => {
   try {
-    const {data} = await api.post(`/users/signup`, user);
-    if (data.status =='201') {
-      toast.success('Successfully Registered,Login!')
-      return { status: true, message: 'Successfully registered'};  
+    const { data } = await api.post(`/users/signup`, user);
+    if (data.status == '201') {
+      toast.success('Successfully Registered,Login!');
+      return { status: true, message: 'Successfully registered' };
     }
     return { status: true, message: 'Unable to signup!' };
   } catch (error) {
-    const message =  error.response.data ? error.response.data.message : 'Unable to add product'; 
+    const message = error.response.data ? error.response.data.message : 'Unable to add product';
     toast.error(message);
     if (error.response) {
       return { status: false, message: message };

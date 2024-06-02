@@ -28,21 +28,21 @@ const Filter = ({ title, url, number, openCloseModal, otherButton }) => {
             <span className="text-[14px] text-semiText">Filter</span>
           </div>
           {url === 'products' && (
-            <div className='flex gap-2'>
+            <div className="flex gap-2">
               <div
-              onClick={openCloseModal}
-              className="py-2 px-4 rounded-[8px] bg-main cursor-pointer hover:opacity-80 transition-all flex flex-row gap-2 items-center"
-            >
-              <span className="text-[14px] text-white font-[300]">Add Fertilizer</span>
-              <span className="text-[18px] text-white font-[300]">+</span>
-            </div>
-            <div
-              onClick={otherButton}
-              className="py-2 px-4 rounded-[8px] bg-main cursor-pointer hover:opacity-80 transition-all flex flex-row gap-2 items-center"
-            >
-              <span className="text-[14px] text-white font-[300]">Add Seed Product</span>
-              <span className="text-[18px] text-white font-[300]">+</span>
-            </div>
+                onClick={openCloseModal}
+                className="py-2 px-4 rounded-[8px] bg-main cursor-pointer hover:opacity-80 transition-all flex flex-row gap-2 items-center"
+              >
+                <span className="text-[14px] text-white font-[300]">Add Fertilizer</span>
+                <span className="text-[18px] text-white font-[300]">+</span>
+              </div>
+              <div
+                onClick={otherButton}
+                className="py-2 px-4 rounded-[8px] bg-main cursor-pointer hover:opacity-80 transition-all flex flex-row gap-2 items-center"
+              >
+                <span className="text-[14px] text-white font-[300]">Add Seed Product</span>
+                <span className="text-[18px] text-white font-[300]">+</span>
+              </div>
             </div>
           )}
 
