@@ -8,7 +8,7 @@ const AddProduct = ({ closeModal, updateFormData, handleRegister }) => {
       <div className=" w-1/2 bg-white rounded-[12px] p-4 items-start flex flex-col gap-4">
         <>
           <div className="flex flex-row justify-between w-full">
-            <h1 className="text-[18px] font-[600]">Add Fetilizer</h1>
+            <h1 className="text-[18px] font-[600]">Add Fertilizer Product</h1>
             <div onClick={closeModal} className="cursor-pointer">
               <svg
                 width="24"
@@ -38,83 +38,83 @@ const AddProduct = ({ closeModal, updateFormData, handleRegister }) => {
                 <span className="text-[16px] font-[300] text-main">Product Category</span>
                 <SelectField
                   handleChange={updateFormData}
-                  id={'fertilizer_id'}
-                  name={'fertilizer_id'}
-                  type={'Fertilizer'}
+                  id={'category_id'}
+                  name={'category_id'}
+                  type={'Category'}
                   isRequired={true}
-                  selectOptions={[{ key: 'fertilizer', value: '1' }]}
-                  selectType={'Select Fertilizer'}
+                  selectOptions={[{ key: 'Fertilizer', value: '1' }]}
+                  selectType={'Select Category'}
                   classname={'p-3 bg-background rounded-[8px] font-[300] outline-none w-full'}
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-1/2">
-                <span className="text-[16px] font-[300] text-main">LastName</span>
+                <span className="text-[16px] font-[300] text-main">Product Name</span>
                 <InputField
                   handleChange={updateFormData}
-                  id={'lastName'}
-                  name={'lastName'}
+                  id={'name'}
+                  name={'name'}
                   type={'text'}
                   isRequired={true}
-                  placeholder={'Enter lastname'}
-                  classname={'p-3 bg-background rounded-[8px] font-[300] outline-none w-full'}
-                />
-              </div>
-            </div>
-            <div className="flex flex-row gap-4">
-              <div className="flex flex-col items-start gap-1 w-1/2">
-                <span className="text-[16px] font-[300] text-main">Phone Number</span>
-                <InputField
-                  handleChange={updateFormData}
-                  id={'phoneNumber'}
-                  name={'phoneNumber'}
-                  type={'text'}
-                  isRequired={true}
-                  placeholder={'Enter telephone'}
-                  classname={'p-3 bg-background rounded-[8px] font-[300] outline-none  w-full'}
-                />
-              </div>
-              <div className="flex flex-col items-start gap-1 w-1/2">
-                <span className="text-[16px] font-[300] text-main">Email Address</span>
-                <InputField
-                  handleChange={updateFormData}
-                  id={'email'}
-                  name={'email'}
-                  type={'text'}
-                  isRequired={true}
-                  placeholder={'Enter Email address'}
+                  placeholder={'Enter Name'}
                   classname={'p-3 bg-background rounded-[8px] font-[300] outline-none w-full'}
                 />
               </div>
             </div>
-            <div className="flex flex-row gap-4">
-              <div className="flex flex-col items-start gap-1 w-1/2">
-                <span className="text-[16px] font-[300] text-main">Date of birth</span>
+            <div className='text-[16px] font-[300] text-main'>
+            <div className="flex flex-col items-start gap-1 w-full">
+                <span className="text-[16px] font-[300] text-main">Quantity Per Acre</span>
                 <InputField
                   handleChange={updateFormData}
-                  id={'dateOfBirth'}
-                  name={'dateOfBirth'}
-                  type={'date'}
+                  id={'quantity_per_acre'}
+                  name={'quantity_per_acre'}
+                  type={'number'}
                   isRequired={true}
-                  placeholder={''}
-                  classname={'p-3 bg-background rounded-[8px] font-[300] outline-none w-full'}
-                />
-              </div>
-            </div>
-            <div className="flex flex-row gap-4">
-              <div className="flex flex-col items-start gap-1 w-1/2">
-                <span className="text-[16px] font-[300] text-main">Password</span>
-                <InputField
-                  handleChange={updateFormData}
-                  id={'password'}
-                  name={'password'}
-                  type={'text'}
-                  isRequired={true}
-                  placeholder={'Enter Password'}
+                  placeholder={'Enter quantity'}
                   classname={'p-3 bg-background rounded-[8px] font-[300] outline-none  w-full'}
                 />
               </div>
             </div>
-            <button className="p-3 rounded-[8px] bg-main text-white">Submit</button>
+            <div className="flex flex-row gap-4">
+              <div className="flex flex-col items-start gap-1 w-1/2">
+                <span className="text-[16px] font-[300] text-main">Price In RWF</span>
+                <InputField
+                  handleChange={updateFormData}
+                  id={'price'}
+                  name={'price'}
+                  type={'number'}
+                  isRequired={true}
+                  placeholder={'Enter price'}
+                  classname={'p-3 bg-background rounded-[8px] font-[300] outline-none  w-full'}
+                />
+              </div>
+              <div className="flex flex-col items-start gap-1 w-1/2">
+                <span className="text-[16px] font-[300] text-main">Image</span>
+                <InputField
+                  handleChange={updateFormData}
+                  id={'image_url'}
+                  name={'image_url'}
+                  type={'text'}
+                  isRequired={true}
+                  placeholder={'Product Image'}
+                  classname={'p-3 bg-background rounded-[8px] font-[300] outline-none w-full'}
+                />
+              </div>
+            </div>
+            <div className="flex flex-colgap-4">
+              <div className="flex flex-col items-start gap-1 w-full">
+                <span className="text-[16px] font-[300] text-main">Description</span>
+                <textarea
+                  onChange={updateFormData}
+                  className="border-[1px] border-grayText/40 rounded-[6px] w-full p-2 outline-none"
+                  placeholder="Description"
+                  name="description"
+                  id="description"
+                  cols="30"
+                  rows="5"
+                ></textarea>
+              </div>
+            </div>
+            <button className="p-3 rounded-[8px] bg-main text-white" type='submit'>Submit</button>
           </form>
         </>
       </div>

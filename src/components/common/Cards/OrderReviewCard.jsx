@@ -8,8 +8,12 @@ const OrderReviewCard=({product, index, removeItem})=> {
             <div className="p-6 flex flex-col w-full">
                 <div className='flex flex-row justify-content-evenly w-full'>
                     <div className="flex-none p-2 m-2 rounded border border-gray-300">
+                        <p className='font-medium font-bold mr-1 pr-1'>Name</p>
+                        <p>{item.name}</p>
+                    </div>
+                    <div className="flex-none p-2 m-2 rounded border border-gray-300">
                         <p className='font-medium font-bold mr-1 pr-1'>Quantity</p>
-                        <p>{product.quantity}</p>
+                        <p>{(product.quantity * item.quantity_per_acre)} Kgs</p>
                     </div>
                     <div className="flex-none p-2 m-2 rounded border border-gray-300">
                         <p className='font-medium font-bold mr-1 pr-1'>Price</p>
@@ -17,7 +21,7 @@ const OrderReviewCard=({product, index, removeItem})=> {
                     </div>
                     <div className="flex-none p-2 m-2 rounded border border-gray-300">
                         <p className='font-medium font-bold mr-1 pr-1'>Total</p>
-                        <p>{(product.quantity)* (item.price)} RWF</p>
+                        <p>{(product.quantity * item.quantity_per_acre)* (item.price)} RWF</p>
                     </div>
                 </div>
                 <div className='flex flex-row justify-content-end items-end'>

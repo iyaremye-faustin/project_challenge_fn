@@ -13,6 +13,18 @@ export const getAllProducts = async () => {
   }
 };
 
+export const getProductsByCategory=async(categoryId)=>{
+  try {
+    const { data } = await api.get(`/products/category/${categoryId}`);
+    if (data.status == '200') {
+      return data.data;
+    }
+    return [];
+  } catch (error) {
+    return [];
+  }
+}
+
 export const saveProduct = async (product) => {
   try {
     const { data } = await api.post('/products', product);

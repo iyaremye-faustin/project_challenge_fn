@@ -15,21 +15,37 @@ const Orders = () => {
     setLoading(true)
     const res = await getAllOrders(currentPage,pageSize);
     if (res) {
-     setOrders(res.orders)
-     setTotalItems(res.count)
+    const {orders, count} = res;
+     orders.map((el)=>{
+      el.names = el.user.full_name, 
+      el.quantity = el.items.length,
+      el.payed= el.is_paid ? 'Paid':'Not Paid',
+      el.date = new Date(el.createdAt).toDateString()
+     })
+     setOrders(orders)
+     setTotalItems(count)
     }
     setLoading(false)
   };
 
   const ordersColumns = [
     'order_id',
-    'createdAt',
+    'names',
+    'quantity',
+    'land_size_acre',
+    'total_amount',
+    'payed',
+    'date',
   ];
 
   const ordersLabels = {
-    chargeBoxId: 'Order Date',
-    ownerEmail: 'Order By',
-    locationLatitude: 'Payment Status'
+    order_id: 'Order ID',
+    names: 'Names',
+    quantity:'Total Items',
+    land_size_acre: 'Land Size',
+    total_amount: 'Amount',
+    payed:'Payment Status',
+    date: 'Time Created',
   };
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);

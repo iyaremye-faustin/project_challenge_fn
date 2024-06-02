@@ -9,7 +9,6 @@ export const authLogin = async (login) => {
     if (data.status == '200') {
       const decodedToken = jwtDecode(data.data.token);
       const { payload } = decodedToken;
-      console.log(payload);
       localStorage.setItem(
         'farm_sys_token',
         JSON.stringify({

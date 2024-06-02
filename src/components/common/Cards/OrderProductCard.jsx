@@ -5,12 +5,12 @@ import { getCartFromLocalStorage, saveCartToLocalStorage } from '../../../api/lo
 import { notificationErrorStyles } from '../../constants/app';
 import useAppStore from '../../store/AppStore';
 
-const OrderProductCard = ({ item }) => {
-  const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState(0);
+const OrderProductCard = ({ item, acreSize, changeLandSize }) => {
+  const [quantity, setQuantity] = useState(acreSize);
   const { cartItems, setCartItems } = useAppStore((state) => state);
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
+    changeLandSize(newQuantity)
   };
 
   const increaseQuantity = () => {
@@ -27,17 +27,20 @@ const OrderProductCard = ({ item }) => {
   };
 
   const addToCart = () => {
-    const cartItem = { item, quantity, size };
+    const cartItem = { item, quantity: acreSize };
+    const cart = getCartFromLocalStorage();
     if (!isProductInCart) {
-      const updatedCart = [...getCartFromLocalStorage(), cartItem];
-      saveCartToLocalStorage(updatedCart);
-      setCartItems(updatedCart);
-      setQuantity(1);
-      toast('Product is added to cart');
+      const updatedCart = [...cart, cartItem];
+      const updatedCartWithFixedQuantity = updatedCart.map(item => ({ ...item, quantity: acreSize }));
+      saveCartToLocalStorage(updatedCartWithFixedQuantity);
+      setCartItems(updatedCartWithFixedQuantity);
+      toast.success('Product is added to cart');
     } else {
       toast.error('Product Already added', { className: notificationErrorStyles });
     }
   };
+  
+
   const initPage = () => {
     const cart = getCartFromLocalStorage();
     setCartItems(cart);
@@ -57,18 +60,12 @@ const OrderProductCard = ({ item }) => {
         <p className="text-base mb-4">{item.description}</p>
       </div>
       <div className="flex flex-col justify-center items-center m-2 gap-2">
-        <h4>Land Size (In Acres)</h4>
-        <input
-          type="text"
-          placeholder="Land Size"
-          className="border border-gray-400 p-1 rounded-[8px] font-[300] outline-none w-1/2"
-          defaultValue={0}
-        />
+        <h4>{item.category.name}</h4>
       </div>
       <div className="flex justify-center items-center mb-2">
         <div>
           <Button
-            classStyles="border border-gray-400 text-gray-700 text-sm rounded-full px-2 py-1"
+            classStyles="border border-gray-400 text-gray-700 text-sm rounded-md px-2 py-1"
             name="minus"
             value="-"
             type="button"
@@ -79,7 +76,7 @@ const OrderProductCard = ({ item }) => {
           type="text"
           readOnly
           className="text-center mx-1"
-          value={quantity}
+          value={acreSize}
           style={{
             width: '2rem',
             height: '1.5rem',
@@ -87,10 +84,10 @@ const OrderProductCard = ({ item }) => {
             textAlign: 'center'
           }}
         />
-        <span>Kg</span>
+        <span>Acres</span>
         <div>
           <Button
-            classStyles="border ml-1 border-gray-400 text-gray-700 text-sm rounded-full px-2 py-1"
+            classStyles="border ml-1 border-gray-400 text-gray-700 text-sm rounded-md px-2 py-1"
             name="plus"
             value="+"
             type="button"
