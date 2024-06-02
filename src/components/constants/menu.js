@@ -279,7 +279,7 @@ export const storeMenu = [
         />
       </svg>
     ),
-    url: '/storekeeper/products'
+    url: '/storekeeper'
   },
   {
     name: 'Orders',

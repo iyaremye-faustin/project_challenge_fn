@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import InputField from '../reusable/InputField';
 import SelectField from '../reusable/SelectField';
 
-const AddSeedProduct = ({ closeModal, updateFormData, handleRegister }) => {
+const AddSeedProduct = ({ closeModal, updateFormData, handleRegister, fertilizers }) => {
+  console.log(fertilizers,"here")
   return (
     <div className="w-screen h-[100vh] bg-main/30 flex flex-col gap-2 top-0 absolute  items-center justify-center">
       <div className=" w-1/2 bg-white rounded-[12px] p-4 items-start flex flex-col gap-4">
@@ -61,6 +62,31 @@ const AddSeedProduct = ({ closeModal, updateFormData, handleRegister }) => {
               </div>
             </div>
             <div className="flex flex-row gap-4">
+              <div className="flex flex-col items-start gap-1 w-full">
+                <span className="text-[16px] font-[300] text-main">Product Fertilizer</span>
+                <select name="fertilizer_id" id="fertilizer_id" className='p-3 bg-background rounded-[8px] font-[300] outline-none w-full' onChange={updateFormData} required>
+                  <option>select fertilizer</option>
+                  {fertilizers.map((el)=>(
+                    <option value={el.product_id}>{el.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className='text-[16px] font-[300] text-main'>
+            <div className="flex flex-col items-start gap-1 w-full">
+                <span className="text-[16px] font-[300] text-main">Quantity Per Acre</span>
+                <InputField
+                  handleChange={updateFormData}
+                  id={'quantity_per_acre'}
+                  name={'quantity_per_acre'}
+                  type={'number'}
+                  isRequired={true}
+                  placeholder={'Enter quantity'}
+                  classname={'p-3 bg-background rounded-[8px] font-[300] outline-none  w-full'}
+                />
+              </div>
+            </div>
+            <div className="flex flex-row gap-4">
               <div className="flex flex-col items-start gap-1 w-1/2">
                 <span className="text-[16px] font-[300] text-main">Price In RWF</span>
                 <InputField
@@ -92,7 +118,7 @@ const AddSeedProduct = ({ closeModal, updateFormData, handleRegister }) => {
                 <textarea
                   onChange={updateFormData}
                   className="border-[1px] border-grayText/40 rounded-[6px] w-full p-2 outline-none"
-                  placeholder="Add your Commnet"
+                  placeholder="Description"
                   name="description"
                   id="description"
                   cols="30"
@@ -100,7 +126,7 @@ const AddSeedProduct = ({ closeModal, updateFormData, handleRegister }) => {
                 ></textarea>
               </div>
             </div>
-            <button className="p-3 rounded-[8px] bg-main text-white">Submit</button>
+            <button className="p-3 rounded-[8px] bg-main text-white" type='submit'>Submit</button>
           </form>
         </>
       </div>

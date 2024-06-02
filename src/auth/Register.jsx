@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import logo from '../assets/images/logo.svg';
-import authImage from '../assets/images/Frame 271.png';
 import InputField from '../components/reusable/InputField';
 import SelectField from '../components/reusable/SelectField';
 import { authRegister } from '../api/auth';
@@ -21,19 +20,26 @@ const Register = () => {
   };
   return (
     <div className="w-full h-[100vh] flex flex-row ">
-      <div className="w-1/2 h-full relative items-start">
-        <div className="flex flex-col w-full h-full absolute">
-          <img src={authImage} className="w-full h-full object-cover" alt="" />
+      <div className="w-1/2 h-screen relative items-start">
+      <section
+        id="home"
+        className="bg-main mb-32 h-screen flex items-center justify-center"
+      >
+        <div className="px-6 py-12 text-center md:px-12 lg:text-left">
+          <div className="container mx-auto">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div className="mt-12 lg:mt-0">
+                <h1 className="mb-12 text-3xl font-bold tracking-tight text-[hsl(200,70%,85%)] md:text-6xl xl:text-7xl">
+                  Ago Production Manamegment <br />
+                </h1>
+                <p className="text-lg text-[hsl(218,81%,95%)]">
+                  We Serve you with Integrity.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="w-[100px] mx-auto relative my-[30vh]">
-          <img src={logo} className="w-full" alt="" />
-        </div>
-        <div className="relative bottom-0 z-40 w-full items-start flex flex-col px-20">
-          <h1 className="text-white text-[24px]">Crop Production seed-fertilizer management</h1>
-          <span className="text-semiText text-start text-[14px]">
-            Powering Your Agriculture, Empowering Your Future
-          </span>
-        </div>
+      </section>
       </div>
       <div className="w-1/2 h-full relative  flex flex-col gap-5  items-center justify-center">
         <form className="flex flex-col gap-2 w-[500px] " onSubmit={handleRegister}>

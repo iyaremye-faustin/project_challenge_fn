@@ -5,10 +5,14 @@ import DashboardHeader from '../ui/DashboardHeader';
 
 const Order = () => {
   const [products, setProducts] = useState([]);
+  const [size,setSize] = useState(1);
   const fetchProducts = async () => {
     const res = await getAllProducts();
     setProducts(res);
   };
+  const manageLandSize =(landSize)=>{
+    setSize(landSize);
+  }
 
   useEffect(() => {
     fetchProducts();
@@ -18,7 +22,7 @@ const Order = () => {
       <DashboardHeader headerTitle={'New'} subTitle={'Order'} />
       <div className="flex flex-wrap justify-center gap-4">
         {products.map((el, index) => (
-          <OrderProductCard key={index} item={el} index={index} />
+          <OrderProductCard key={index} item={el} index={index} acreSize={size} changeLandSize={manageLandSize}/>
         ))}
       </div>
     </div>

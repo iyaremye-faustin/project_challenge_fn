@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllOrders } from '../../api/order';
+import { getAllOrders,approveOrder } from '../../api/order';
 import DataTable from '../ui/DataTable';
 import DashboardHeader from '../ui/DashboardHeader';
 import Filter from '../admin/parts/Filter';
@@ -15,23 +15,39 @@ const StoreOrders = () => {
     setLoading(true)
     const res = await getAllOrders(currentPage,pageSize);
     if (res) {
-     setOrders(res.orders)
-     setTotalItems(res.count)
+      const {orders, count} = res
+      orders.map((el)=>{
+        el.names = el.user.full_name, 
+        el.quantity = el.items.length,
+        el.payed= el.is_paid ? 'Paid':'Not Paid', 
+        el.date = new Date(el.createdAt).toDateString()
+       })
+     setOrders(orders)
+     setTotalItems(count)
     }
     setLoading(false)
   };
 
   const ordersColumns = [
     'order_id',
-    'payment_status',
-    'createdAt',
+    'names',
+    'quantity',
+    'land_size_acre',
+    'total_amount',
+    'payed',
+    'date',
   ];
 
   const ordersLabels = {
-    oder_id: 'Order ID',
-    payment_status: 'Payment Status',
-    createdAt: 'Created Time'
+    order_id: 'Order ID',
+    names: 'Names',
+    quantity:'Total Items',
+    land_size_acre: 'Land Size',
+    total_amount: 'Amount',
+    payed:'Payment Status',
+    date: 'Time Created',
   };
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -39,6 +55,15 @@ const StoreOrders = () => {
   const goToOrdersPage = () => {
     navigate('/farmer/make/orders');
   };
+  const actions = [
+    {
+      label: 'Approve',
+      onClick: async(row) => {
+        await approveOrder(row.order_id);
+        getOrders();
+      }
+    }
+  ];
 
   useEffect(() => {
     getOrders();
@@ -56,17 +81,19 @@ const StoreOrders = () => {
       />
       <div className="relative">
         <div className="sticky top-0 bg-white shadow-md z-10">
-          {!loading && <DataTable
+          {!loading && orders.length > 0 && 
+            (<DataTable
               data={orders}
               columns={ordersColumns}
               labels={ordersLabels}
-              actions={[]}
+              actions={actions}
               totalItems={totalItems}
               currentPage={currentPage}
               pageSize={pageSize}
               onPageChange={handlePageChange}
               onPageSizeChange={()=>{}}
-            />}
+            />)
+          }
         </div>
       </div>
     </div>

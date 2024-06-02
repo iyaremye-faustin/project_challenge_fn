@@ -38,3 +38,14 @@ export const addProductOrder=async(order)=>{
     return { status: false, message: 'Failed!' };
   }
 }
+
+export const approveOrder = async(orderId)=>{
+  try {
+    const { data } = await api.put(`/orders/${orderId}/approve`);
+    if (data.status == '200') {
+      return true;
+    }
+  } catch (error) {
+    return false;
+  } 
+}
