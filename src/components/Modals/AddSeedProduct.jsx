@@ -66,8 +66,8 @@ const AddSeedProduct = ({ closeModal, updateFormData, handleRegister, fertilizer
                 <span className="text-[16px] font-[300] text-main">Product Fertilizer</span>
                 <select name="fertilizer_id" id="fertilizer_id" className='p-3 bg-background rounded-[8px] font-[300] outline-none w-full' onChange={updateFormData} required>
                   <option>select fertilizer</option>
-                  {fertilizers.map((el)=>(
-                    <option value={el.product_id}>{el.name}</option>
+                  {fertilizers.map((el, index)=>(
+                    <option key ={index} value={el.product_id}>{el.name}</option>
                   ))}
                 </select>
               </div>
