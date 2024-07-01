@@ -10,7 +10,7 @@ const OrderProductCard = ({ item, acreSize, changeLandSize }) => {
   const { cartItems, setCartItems } = useAppStore((state) => state);
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
-    changeLandSize(newQuantity)
+    changeLandSize(newQuantity);
   };
 
   const increaseQuantity = () => {
@@ -31,7 +31,10 @@ const OrderProductCard = ({ item, acreSize, changeLandSize }) => {
     const cart = getCartFromLocalStorage();
     if (!isProductInCart) {
       const updatedCart = [...cart, cartItem];
-      const updatedCartWithFixedQuantity = updatedCart.map(item => ({ ...item, quantity: acreSize }));
+      const updatedCartWithFixedQuantity = updatedCart.map((item) => ({
+        ...item,
+        quantity: acreSize
+      }));
       saveCartToLocalStorage(updatedCartWithFixedQuantity);
       setCartItems(updatedCartWithFixedQuantity);
       toast.success('Product is added to cart');
@@ -39,7 +42,6 @@ const OrderProductCard = ({ item, acreSize, changeLandSize }) => {
       toast.error('Product Already added', { className: notificationErrorStyles });
     }
   };
-  
 
   const initPage = () => {
     const cart = getCartFromLocalStorage();
@@ -53,9 +55,9 @@ const OrderProductCard = ({ item, acreSize, changeLandSize }) => {
   return (
     <div className="block max-w-[18rem] rounded-lg bg-white text-surface shadow-lg dark:bg-surface-dark dark:text-white">
       <div className="relative overflow-hidden bg-cover bg-no-repeat">
-        <img className="rounded-t-md w-full" src={item.image_url} alt={item.name} />
+        <img className="rounded-t-md rounded-t-md h-40 w-full" src={item.image_url} alt={item.name} />
       </div>
-      <div className="p-6">
+      <div className="p-3">
         <h5 className="mb-2 text-xl font-medium leading-tight">{item.name}</h5>
         <p className="text-base mb-4">{item.description}</p>
       </div>

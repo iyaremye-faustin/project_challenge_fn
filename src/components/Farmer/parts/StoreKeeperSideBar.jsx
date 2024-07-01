@@ -3,8 +3,6 @@ import logo from '../../../assets/images/logo.svg';
 import { useLocation } from 'react-router-dom';
 import { storeMenu } from '../../constants/menu';
 
-
-
 const StoreKeeperSideBar = () => {
   const location = useLocation();
   const [openMenu, setOpenMenu] = useState(false);

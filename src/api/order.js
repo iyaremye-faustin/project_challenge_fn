@@ -5,9 +5,9 @@ export const getAllOrders = async (page = 1, limit = 5) => {
   try {
     const queryParams = {
       page,
-      limit,
+      limit
     };
-    const { data } = await api.get('/orders',{ params: queryParams });
+    const { data } = await api.get('/orders', { params: queryParams });
     if (data.status == '200') {
       return data.data;
     }
@@ -17,10 +17,10 @@ export const getAllOrders = async (page = 1, limit = 5) => {
   }
 };
 
-export const addProductOrder=async(order)=>{
+export const addProductOrder = async (order) => {
   try {
     const { data } = await api.post('/orders', order);
-    if (data.status=='201') {
+    if (data.status == '201') {
       toast.success('Order Added Suucessfully!');
       return { status: true, message: 'Order Added!' };
     }
@@ -37,9 +37,9 @@ export const addProductOrder=async(order)=>{
     }
     return { status: false, message: 'Failed!' };
   }
-}
+};
 
-export const approveOrder = async(orderId)=>{
+export const approveOrder = async (orderId) => {
   try {
     const { data } = await api.put(`/orders/${orderId}/approve`);
     if (data.status == '200') {
@@ -47,5 +47,5 @@ export const approveOrder = async(orderId)=>{
     }
   } catch (error) {
     return false;
-  } 
-}
+  }
+};

@@ -44,7 +44,7 @@ const DataTable = ({
                 {labels[column]}
               </th>
             ))}
-            {actions && <th>Actions</th>}
+            {actions.length > 0 && <th>Actions</th>}
           </tr>
         </thead>
         <tbody
@@ -59,7 +59,7 @@ const DataTable = ({
                   {row[column] !== undefined ? row[column] : ''}
                 </td>
               ))}
-              {actions && (
+              {actions.length > 0 && (
                 <td className="flex flex-row gap-3 px-6 py-3 text-xs text-left text-gray-500 w-200 relative">
                   <div className="relative inline-block text-left z-50">
                     <div>
@@ -122,7 +122,6 @@ const DataTable = ({
           >
             <button
               onClick={() => onPageChange(currentPage - 1)}
-              disabled={currentPage === 1}
               className={`relative inline-flex items-center px-2 py-2 rounded-l-md  ${
                 currentPage === 1
                   ? 'bg-gray-100 text-gray-500 cursor-not-allowed'
@@ -144,14 +143,14 @@ const DataTable = ({
                 />
               </svg>
             </button>
-            {[...Array(lastPage)].map((_, index) => (
+            {[Array.from(lastPage)].map((_, index) => (
               <button
                 key={index}
                 onClick={() => onPageChange(index + 1)}
                 className={`relative inline-flex items-center px-4 py-2  ${
                   currentPage === index + 1
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    ? 'bg-[#EDFBFF] text-[#37C9EE]'
+                    : ''
                 }`}
               >
                 {index + 1}
@@ -162,8 +161,8 @@ const DataTable = ({
               disabled={currentPage === lastPage}
               className={`relative inline-flex items-center px-2 py-2 rounded-r-md  ${
                 currentPage === lastPage
-                  ? 'bg-gray-100 text-gray-500 cursor-not-allowed'
-                  : 'bg-white text-gray-700 hover:bg-gray-50'
+                  ? 'bg-[#EDFBFF] text-[#37C9EE]'
+                  : ''
               }`}
             >
               <span className="sr-only">Next</span>
@@ -221,14 +220,14 @@ const DataTable = ({
                 />
               </svg>
             </button>
-            {[...Array(lastPage)].map((_, index) => (
+            {[Array.from(lastPage)].map((_, index) => (
               <button
                 key={index}
                 onClick={() => onPageChange(index + 1)}
                 className={`relative inline-flex items-center px-4 py-2 ${
                   currentPage === index + 1
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-blue-200 text-gray-700 hover:bg-gray-50'
+                    ? 'bg-[#EDFBFF] text-[#37C9EE]'
+                    : ''
                 }`}
               >
                 {index + 1}

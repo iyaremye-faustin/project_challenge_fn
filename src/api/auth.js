@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 export const authLogin = async (login) => {
   try {
     const { data } = await axios.post(`${baseURL}/users/signin`, login);
+    console.log(data);
     if (data.status == '200') {
       const decodedToken = jwtDecode(data.data.token);
       const { payload } = decodedToken;

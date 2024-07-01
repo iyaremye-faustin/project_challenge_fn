@@ -17,7 +17,7 @@ export const getAllUsers = async (page = 1, limit = 5) => {
   try {
     const queryParams = {
       page,
-      limit,
+      limit
     };
     const { data } = await api.get('/users', { params: queryParams });
     if (data.status == '200') {

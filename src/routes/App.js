@@ -26,18 +26,18 @@ function App() {
           <Route index element={<Accounts />} />
           <Route path="users" element={<Accounts />} />
           <Route path="products" element={<AdminProducts />} />
-          <Route path="orders" element={<StoreOrders/>}/>
+          <Route path="orders" element={<StoreOrders />} />
         </Route>
         <Route path="/farmer" element={<Farmer />}>
           <Route index element={<Products />} />
           <Route path="products" element={<Products />} />
           <Route path="orders" element={<Orders />} />
           <Route path="make/orders" element={<Order />} />
-          <Route path="order/review" element={<OrderReviewPage/>}/>
+          <Route path="order/review" element={<OrderReviewPage />} />
         </Route>
         <Route path="/storekeeper" element={<StoreKeeper />}>
           <Route index element={<AdminProducts />} />
-          <Route path="orders" element={<StoreOrders/>}/>
+          <Route path="orders" element={<StoreOrders />} />
         </Route>
         <Route path="logout" element={<Logout />} />
       </Routes>

@@ -130,6 +130,7 @@ const Accounts = () => {
           actions={actions}
           currentPage={currentPage}
           totalItems={totalItems}
+          lastPage={1}
           pageSize={pageSize}
         />
       </div>

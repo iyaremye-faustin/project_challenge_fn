@@ -60,8 +60,8 @@ const AddProduct = ({ closeModal, updateFormData, handleRegister }) => {
                 />
               </div>
             </div>
-            <div className='text-[16px] font-[300] text-main'>
-            <div className="flex flex-col items-start gap-1 w-full">
+            <div className="text-[16px] font-[300] text-main">
+              <div className="flex flex-col items-start gap-1 w-full">
                 <span className="text-[16px] font-[300] text-main">Quantity Per Acre</span>
                 <InputField
                   handleChange={updateFormData}
@@ -94,7 +94,7 @@ const AddProduct = ({ closeModal, updateFormData, handleRegister }) => {
                   id={'image_url'}
                   name={'image_url'}
                   type={'text'}
-                  isRequired={true}
+                  isRequired={false}
                   placeholder={'Product Image'}
                   classname={'p-3 bg-background rounded-[8px] font-[300] outline-none w-full'}
                 />
@@ -114,7 +114,9 @@ const AddProduct = ({ closeModal, updateFormData, handleRegister }) => {
                 ></textarea>
               </div>
             </div>
-            <button className="p-3 rounded-[8px] bg-main text-white" type='submit'>Submit</button>
+            <button className="p-3 rounded-[8px] bg-main text-white" type="submit">
+              Submit
+            </button>
           </form>
         </>
       </div>

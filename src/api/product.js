@@ -1,9 +1,13 @@
 import toast from 'react-hot-toast';
 import { api } from '.';
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (page = 1, limit = 10) => {
   try {
-    const { data } = await api.get('/products');
+    const queryParams = {
+      page,
+      limit
+    };
+    const { data } = await api.get('/products', { params: queryParams });
     if (data.status == '200') {
       return data.data;
     }
@@ -13,7 +17,7 @@ export const getAllProducts = async () => {
   }
 };
 
-export const getProductsByCategory=async(categoryId)=>{
+export const getProductsByCategory = async (categoryId) => {
   try {
     const { data } = await api.get(`/products/category/${categoryId}`);
     if (data.status == '200') {
@@ -23,12 +27,12 @@ export const getProductsByCategory=async(categoryId)=>{
   } catch (error) {
     return [];
   }
-}
+};
 
 export const saveProduct = async (product) => {
   try {
     const { data } = await api.post('/products', product);
-    if (data.status=='200') {
+    if (data.status == '201') {
       toast.success('Product Added Successfully!');
       return { status: true, message: 'Product Added!' };
     }

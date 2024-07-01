@@ -3,7 +3,6 @@ import InputField from '../reusable/InputField';
 import SelectField from '../reusable/SelectField';
 
 const AddSeedProduct = ({ closeModal, updateFormData, handleRegister, fertilizers }) => {
-  console.log(fertilizers,"here")
   return (
     <div className="w-screen h-[100vh] bg-main/30 flex flex-col gap-2 top-0 absolute  items-center justify-center">
       <div className=" w-1/2 bg-white rounded-[12px] p-4 items-start flex flex-col gap-4">
@@ -64,16 +63,24 @@ const AddSeedProduct = ({ closeModal, updateFormData, handleRegister, fertilizer
             <div className="flex flex-row gap-4">
               <div className="flex flex-col items-start gap-1 w-full">
                 <span className="text-[16px] font-[300] text-main">Product Fertilizer</span>
-                <select name="fertilizer_id" id="fertilizer_id" className='p-3 bg-background rounded-[8px] font-[300] outline-none w-full' onChange={updateFormData} required>
+                <select
+                  name="fertilizer_id"
+                  id="fertilizer_id"
+                  className="p-3 bg-background rounded-[8px] font-[300] outline-none w-full"
+                  onChange={updateFormData}
+                  required
+                >
                   <option>select fertilizer</option>
-                  {fertilizers.map((el, index)=>(
-                    <option key ={index} value={el.product_id}>{el.name}</option>
+                  {fertilizers.map((el, index) => (
+                    <option key={index} value={el.product_id}>
+                      {el.name}
+                    </option>
                   ))}
                 </select>
               </div>
             </div>
-            <div className='text-[16px] font-[300] text-main'>
-            <div className="flex flex-col items-start gap-1 w-full">
+            <div className="text-[16px] font-[300] text-main">
+              <div className="flex flex-col items-start gap-1 w-full">
                 <span className="text-[16px] font-[300] text-main">Quantity Per Acre</span>
                 <InputField
                   handleChange={updateFormData}
@@ -106,7 +113,7 @@ const AddSeedProduct = ({ closeModal, updateFormData, handleRegister, fertilizer
                   id={'image_url'}
                   name={'image_url'}
                   type={'text'}
-                  isRequired={true}
+                  isRequired={false}
                   placeholder={'Product Image'}
                   classname={'p-3 bg-background rounded-[8px] font-[300] outline-none w-full'}
                 />
@@ -126,7 +133,9 @@ const AddSeedProduct = ({ closeModal, updateFormData, handleRegister, fertilizer
                 ></textarea>
               </div>
             </div>
-            <button className="p-3 rounded-[8px] bg-main text-white" type='submit'>Submit</button>
+            <button className="p-3 rounded-[8px] bg-main text-white" type="submit">
+              Submit
+            </button>
           </form>
         </>
       </div>

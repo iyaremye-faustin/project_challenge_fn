@@ -9,54 +9,59 @@ import useAppStore from '../store/AppStore';
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
-  const { loading, setLoading, pageSize, currentPage, setCurrentPage } = useAppStore((state) => state);
+  const { loading, setLoading, pageSize, currentPage, setCurrentPage, totalPages, setTotalPages, itemsPerPage } = useAppStore(
+    (state) => state
+  );
   const navigate = useNavigate();
   const getOrders = async () => {
-    setLoading(true)
-    const res = await getAllOrders(currentPage,pageSize);
+    setLoading(true);
+    const res = await getAllOrders(currentPage, pageSize);
     if (res) {
-    const {orders, count} = res;
-     orders.map((el)=>{
-      el.names = el.user.full_name, 
-      el.quantity = el.items.length,
-      el.payed= el.is_paid ? 'Paid':'Not Paid',
-      el.date = new Date(el.createdAt).toDateString()
-     })
-     setOrders(orders)
-     setTotalItems(count)
+      const { orders, count } = res;
+      orders.map((el) => {
+        (el.names = el.user.full_name),
+          (el.quantity = el.items.length),
+          (el.payed = el.is_paid ? 'Paid' : 'Not Paid'),
+          (el.date = new Date(el.createdAt).toDateString());
+      });
+      const pages = Math.ceil(count / itemsPerPage);
+      setTotalPages(pages);
+      setOrders(orders);
+      setTotalItems(count);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   const ordersColumns = [
     'order_id',
-    'names',
     'quantity',
     'land_size_acre',
     'total_amount',
     'payed',
-    'date',
+    'date'
   ];
 
   const ordersLabels = {
     order_id: 'Order ID',
     names: 'Names',
-    quantity:'Total Items',
+    quantity: 'Total Items',
     land_size_acre: 'Land Size',
-    total_amount: 'Amount',
-    payed:'Payment Status',
-    date: 'Time Created',
+    total_amount: 'Amount in RWF',
+    payed: 'Payment Status',
+    date: 'Time Created'
   };
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
   const goToOrdersPage = () => {
     navigate('/farmer/make/orders');
   };
 
   useEffect(() => {
     getOrders();
-  }, [currentPage,pageSize]);
+  }, [currentPage, pageSize]);
 
   return (
     <div className="flex flex-col p-2 gap-2">
@@ -70,7 +75,8 @@ const Orders = () => {
       />
       <div className="relative">
         <div className="sticky top-0 bg-white shadow-md z-10">
-          {!loading && <DataTable
+          {!loading && (
+            <DataTable
               data={orders}
               columns={ordersColumns}
               labels={ordersLabels}
@@ -78,9 +84,11 @@ const Orders = () => {
               totalItems={totalItems}
               currentPage={currentPage}
               pageSize={pageSize}
+              lastPage={totalPages}
               onPageChange={handlePageChange}
-              onPageSizeChange={()=>{}}
-            />}
+              onPageSizeChange={() => {}}
+            />
+          )}
         </div>
       </div>
     </div>

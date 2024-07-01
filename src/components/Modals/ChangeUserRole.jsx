@@ -41,7 +41,9 @@ const ChangeUserRole = ({ roles, closeModal, updateFormData, handleRegister }) =
                   onChange={updateFormData}
                 >
                   {roles.map((el, index) => (
-                    <option key ={index} value={el.role_name}>{el.role_name}</option>
+                    <option key={index} value={el.role_name}>
+                      {el.role_name}
+                    </option>
                   ))}
                 </select>
               </div>

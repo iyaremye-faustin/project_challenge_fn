@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 
-export const baseURL = "https://dev.umujyi.com/api/v1";
+export const baseURL = 'https://dev.umujyi.com/api/v1';
 
 export const api = axios.create({
   baseURL: `${baseURL}`

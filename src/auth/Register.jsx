@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import logo from '../assets/images/logo.svg';
 import InputField from '../components/reusable/InputField';
-import SelectField from '../components/reusable/SelectField';
+import CircleSpinnerSmall from '../components/reusable/CircleSpinnerSmall';
+import useAppStore from '../components/store/AppStore';
 import { authRegister } from '../api/auth';
 
 const Register = () => {
   const [formData, setFormData] = useState({});
+  const { loading, setLoading } = useAppStore((state) => state);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -15,31 +18,28 @@ const Register = () => {
   };
 
   const handleRegister = async (e) => {
+    setLoading(true)
     e.preventDefault();
     await authRegister(formData);
+    setLoading(false)
   };
   return (
     <div className="w-full h-[100vh] flex flex-row ">
       <div className="w-1/2 h-screen relative items-start">
-      <section
-        id="home"
-        className="bg-main mb-32 h-screen flex items-center justify-center"
-      >
-        <div className="px-6 py-12 text-center md:px-12 lg:text-left">
-          <div className="container mx-auto">
-            <div className="grid items-center gap-12 lg:grid-cols-2">
-              <div className="mt-12 lg:mt-0">
-                <h1 className="mb-12 text-3xl font-bold tracking-tight text-[hsl(200,70%,85%)] md:text-6xl xl:text-7xl">
-                  Ago Production Manamegment <br />
-                </h1>
-                <p className="text-lg text-[hsl(218,81%,95%)]">
-                  We Serve you with Integrity.
-                </p>
+        <section id="home" className="bg-main mb-32 h-screen flex items-center justify-center">
+          <div className="px-6 py-12 text-center md:px-12 lg:text-left">
+            <div className="container mx-auto">
+              <div className="grid items-center gap-12 lg:grid-cols-2">
+                <div className="mt-12 lg:mt-0">
+                  <h1 className="mb-12 text-3xl font-bold tracking-tight text-[hsl(200,70%,85%)] md:text-6xl xl:text-7xl">
+                    Ago Production Manamegment <br />
+                  </h1>
+                  <p className="text-lg text-[hsl(218,81%,95%)]">We Serve you with Integrity.</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
       </div>
       <div className="w-1/2 h-full relative  flex flex-col gap-5  items-center justify-center">
         <form className="flex flex-col gap-2 w-[500px] " onSubmit={handleRegister}>
@@ -124,7 +124,8 @@ const Register = () => {
               />
             </div>
           </div>
-          <button className="p-3 rounded-[8px] bg-main text-white">Sign Up</button>
+          {!loading && <button className="p-3 rounded-[8px] bg-main text-white">Sign Up</button>}
+          {loading && <CircleSpinnerSmall />}
           <span className="text-[14px] font-[400] text-main">
             Already Have Account?{' '}
             <a href="/" className="font-[600]">

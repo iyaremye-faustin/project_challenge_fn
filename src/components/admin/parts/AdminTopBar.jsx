@@ -34,11 +34,11 @@ const AdminTopBar = () => {
     setDay(todayDate());
     setLoading(false);
   };
-  const reviewOrder =()=>{
+  const reviewOrder = () => {
     if (cartItems.length) {
       navigate('/farmer/order/review');
     }
-  }
+  };
 
   useEffect(() => {
     validChecking();
